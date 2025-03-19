@@ -1,0 +1,30 @@
+-- Create an external file format for DELIMITED (CSV/TSV) files.
+CREATE EXTERNAL FILE FORMAT file_format_name
+WITH (
+        FORMAT_TYPE = DELIMITEDTEXT
+    [ , FORMAT_OPTIONS ( <format_options> [ ,...n  ] ) ]
+    [ , DATA_COMPRESSION = {
+           'org.apache.hadoop.io.compress.GzipCodec'
+        }
+     ]);
+
+<format_options> ::=
+{
+    FIELD_TERMINATOR = field_terminator
+    | STRING_DELIMITER = string_delimiter
+    | FIRST_ROW = integer -- Applies to: Azure Synapse Analytics and SQL Server 2022 and later versions
+    | DATE_FORMAT = datetime_format
+    | USE_TYPE_DEFAULT = { TRUE | FALSE }
+    | ENCODING = {'UTF8' | 'UTF16'}
+    | PARSER_VERSION = {'parser_version'}
+
+}
+
+--Create an external file format for PARQUET files.
+CREATE EXTERNAL FILE FORMAT file_format_name
+WITH (
+         FORMAT_TYPE = PARQUET
+     [ , DATA_COMPRESSION = {
+        'org.apache.hadoop.io.compress.SnappyCodec'
+      | 'org.apache.hadoop.io.compress.GzipCodec' }
+    ]);
